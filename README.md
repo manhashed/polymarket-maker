@@ -358,4 +358,4 @@ pm2 save && pm2 startup
 
 ## License
 
-MIT
+MIT — see [LICENSE](LICENSE).
