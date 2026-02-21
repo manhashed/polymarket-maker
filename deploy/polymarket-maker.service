@@ -1,0 +1,31 @@
+[Unit]
+Description=Polymarket Maker Bot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=polymarket
+Group=polymarket
+WorkingDirectory=/opt/polymarket-bot
+EnvironmentFile=/opt/polymarket-bot/.env
+ExecStart=/usr/bin/node --max-old-space-size=512 /opt/polymarket-bot/dist/index.js
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=polymarket-maker
+
+# Hardening
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/polymarket-bot/logs
+PrivateTmp=true
+
+# Performance: pin to CPU 0 for cache locality
+CPUAffinity=0
+Nice=-10
+
+[Install]
+WantedBy=multi-user.target
